@@ -35,12 +35,10 @@ void drive(short left, short right)
 
 task main()
 {
+
 	while(true)
 	{
-		int lefs= vexRT[Ch3] + vexRT[Ch1];
-		int righs= vexRT[Ch3] - vexRT[Ch1];
-		motor[port2]=lefs;
-		motor[port5]=righs;
+		drive(port2, port5);
 		mtr(Btn5D, Btn5U, port3, 127, -127); //just put the controller buttons to move forward, backwards, then put the port for the motor to move.
 		mtr(Btn6D, Btn6U, port4, 100, -100); //add as many of these functions as you want
 		mtr(Btn8U, Btn8D, port8, 75, -75);
@@ -53,7 +51,7 @@ task main()
 			//set port 5 motor(right motor) to speed 127(max)
 			motor[port5] = 127;
 			//wait 3200 milliseconds(make motors move forward for 3200 milliseconds, or 3.2 seconds)
-			wait1Msec(3200);
+			wait1Msec(3300);
 			//set motor speed to 0 (motor's stopped)
 			motor[port2] = 0;
 			motor[port5] = 0;
@@ -74,8 +72,8 @@ task main()
 				if(SensorValue[dgtl1] == 1 && SensorValue[dgtl2] == 1)
 				{
 					wait1Msec(500);
-					motor[leftmotor] = -5;
-					motor[rightmotor] = -5;
+					motor[leftmotor] = -55;
+					motor[rightmotor] = -55;
 					wait1Msec(75);
 					motor[leftmotor] = 0;
 					motor[rightmotor] = 0;
@@ -90,17 +88,58 @@ task main()
 				}
 				else if (SensorValue[left] == 1)
 				{
-					motor[rightmotor] = 75;
-					wait1Msec(50);
-					motor[leftmotor] = -75;
+					if(time1[T1] > 10)
+					{
+						motor[rightmotor] = 75;
+						wait1Msec(50);
+						motor[leftmotor] = -75;
+						clearTimer(T1);
+					}
+					else
+					{
+						motor[leftmotor] = -5;
+						motor[rightmotor] = -5;
+						wait1Msec(75);
+						motor[leftmotor] = 0;
+						motor[rightmotor] = 0;
+						wait1Msec(750);
+						//move the conveyor belt
+						motor[port4] = -35;
+						//run conveyor belt for 2 secondss
+						wait1Msec(1500);
+						//turn off conveyor belt
+						motor[port4] = 0;
+						touchedTarget = true;
+					}
+
 				}
 				else if (SensorValue[right] == 1)
 				{
-					motor[leftmotor] = 75;
-					wait1Msec(50);
-					motor[rightmotor] = -75;
+					if(time1[T1] > 10)
+					{
+						motor[leftmotor] = 75;
+						wait1Msec(50);
+						motor[rightmotor] = -75;
+						clearTimer(T1);
+					}
+					else
+					{
+						motor[leftmotor] = -5;
+						motor[rightmotor] = -5;
+						wait1Msec(75);
+						motor[leftmotor] = 0;
+						motor[rightmotor] = 0;
+						wait1Msec(750);
+						//move the conveyor belt
+						motor[port4] = -35;
+						//run conveyor belt for 2 secondss
+						wait1Msec(1500);
+						//turn off conveyor belt
+						motor[port4] = 0;
+						touchedTarget = true;
+					}
 				}
-				else
+				else if (SensorValue[right] == 0 && SensorValue[left] == 0)
 				{
 					motor[leftmotor] = 47.5;
 					motor[rightmotor] = 63.5;
