@@ -71,7 +71,6 @@ task main()
 			while(!touchedTarget){
 				if(SensorValue[dgtl1] == 1 && SensorValue[dgtl2] == 1)
 				{
-					wait1Msec(500);
 					motor[leftmotor] = -55;
 					motor[rightmotor] = -55;
 					wait1Msec(75);
@@ -88,17 +87,18 @@ task main()
 				}
 				else if (SensorValue[left] == 1)
 				{
-					if(time1[T1] > 10)
+					if(time1[T1] > 25)
 					{
 						motor[rightmotor] = 75;
 						wait1Msec(50);
 						motor[leftmotor] = -75;
-						clearTimer(T1);
+						clearTimer(T2);
 					}
 					else
 					{
-						motor[leftmotor] = -5;
-						motor[rightmotor] = -5;
+						//go backwards
+						motor[leftmotor] = -55;
+						motor[rightmotor] = -55;
 						wait1Msec(75);
 						motor[leftmotor] = 0;
 						motor[rightmotor] = 0;
@@ -115,7 +115,7 @@ task main()
 				}
 				else if (SensorValue[right] == 1)
 				{
-					if(time1[T1] > 10)
+					if(time1[T2] > 25)
 					{
 						motor[leftmotor] = 75;
 						wait1Msec(50);
@@ -124,8 +124,8 @@ task main()
 					}
 					else
 					{
-						motor[leftmotor] = -5;
-						motor[rightmotor] = -5;
+						motor[leftmotor] = -55;
+						motor[rightmotor] = -55;
 						wait1Msec(75);
 						motor[leftmotor] = 0;
 						motor[rightmotor] = 0;
