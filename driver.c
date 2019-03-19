@@ -71,6 +71,7 @@ task main()
 			while(!touchedTarget){
 				if(SensorValue[dgtl1] == 1 && SensorValue[dgtl2] == 1)
 				{
+					//go backwards
 					motor[leftmotor] = -55;
 					motor[rightmotor] = -55;
 					wait1Msec(200);
@@ -89,6 +90,7 @@ task main()
 				{
 					if(time1[T1] > 50)
 					{
+						//chunk of code turns left
 						motor[rightmotor] = 75;
 						wait1Msec(15);
 						motor[leftmotor] = -75;
@@ -117,6 +119,7 @@ task main()
 				{
 					if(time1[T2] > 25)
 					{
+						//chunk of code turns right
 						motor[leftmotor] = 75;
 						wait1Msec(15);
 						motor[rightmotor] = -75;
