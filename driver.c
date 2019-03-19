@@ -56,12 +56,12 @@ task main()
 			motor[port2] = 0;
 			motor[port5] = 0;
 			//wait half a second
-			wait1Msec(500);
+			wait1Msec(450);
 			//set left motor to 127(max) (turn right)
 			motor[port2] = 127;
 			motor[port5] = -127;
-			//wait 400 milliseconds (0.4 seconds) to run code for 0.9 seconds
-			wait1Msec(400);
+			//wait 500 milliseconds (0.5 seconds) to run code for 0.5 seconds
+			wait1Msec(500);
 			//set port2 motor to 0. turns off motor.
 			motor[port2] = 0;
 			motor[port5] = 0;
@@ -73,7 +73,7 @@ task main()
 				{
 					motor[leftmotor] = -55;
 					motor[rightmotor] = -55;
-					wait1Msec(75);
+					wait1Msec(200);
 					motor[leftmotor] = 0;
 					motor[rightmotor] = 0;
 					wait1Msec(750);
@@ -87,10 +87,10 @@ task main()
 				}
 				else if (SensorValue[left] == 1)
 				{
-					if(time1[T1] > 25)
+					if(time1[T1] > 50)
 					{
 						motor[rightmotor] = 75;
-						wait1Msec(50);
+						wait1Msec(15);
 						motor[leftmotor] = -75;
 						clearTimer(T2);
 					}
@@ -99,7 +99,7 @@ task main()
 						//go backwards
 						motor[leftmotor] = -55;
 						motor[rightmotor] = -55;
-						wait1Msec(75);
+						wait1Msec(200);
 						motor[leftmotor] = 0;
 						motor[rightmotor] = 0;
 						wait1Msec(750);
@@ -118,7 +118,7 @@ task main()
 					if(time1[T2] > 25)
 					{
 						motor[leftmotor] = 75;
-						wait1Msec(50);
+						wait1Msec(15);
 						motor[rightmotor] = -75;
 						clearTimer(T1);
 					}
@@ -126,7 +126,7 @@ task main()
 					{
 						motor[leftmotor] = -55;
 						motor[rightmotor] = -55;
-						wait1Msec(75);
+						wait1Msec(200);
 						motor[leftmotor] = 0;
 						motor[rightmotor] = 0;
 						wait1Msec(750);
