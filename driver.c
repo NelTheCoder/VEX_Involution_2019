@@ -43,7 +43,21 @@ void drive(short left, short right)
 
 }
 
-//void onHittingTarget()
+void onHittingTarget()
+{
+	motor[port2] = -55;
+	motor[port5] = -55;
+	wait1Msec(100);
+	motor[port2] = 0;
+	motor[port5] = 0;
+	wait1Msec(750);
+	//move the conveyor belt
+	motor[port4] = -26;
+	//run conveyor belt for 3 seconds
+	wait1Msec(3000);
+	//turn off conveyor belt
+	motor[port4] = 0;
+}
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -119,23 +133,12 @@ task autonomous()
 	while(!touchedTarget){
 		if(SensorValue[dgtl1] == 1 && SensorValue[dgtl2] == 1)
 		{
-			motor[port2] = -55;
-			motor[port5] = -55;
-			wait1Msec(100);
-			motor[port2] = 0;
-			motor[port5] = 0;
-			wait1Msec(750);
-			//move the conveyor belt
-			motor[port4] = -25;
-			//run conveyor belt for 2 secondss
-			wait1Msec(2000);
-			//turn off conveyor belt
-			motor[port4] = 0;
+			onHittingTarget();
 			touchedTarget = true;
 		}
 		else if (SensorValue[dgtl1] == 1)
 		{
-			if(time1[T1] > 35)
+			if(time1[T1] > 50)
 			{
 				motor[port5] = 75;
 				wait1Msec(15);
@@ -144,26 +147,14 @@ task autonomous()
 			}
 			else
 			{
-				//go backwards
-				motor[port2] = -55;
-				motor[port5] = -55;
-				wait1Msec(125);
-				motor[port2] = 0;
-				motor[port5] = 0;
-				wait1Msec(750);
-				//move the conveyor belt
-				motor[port4] = -20;
-				//run conveyor belt for 2 secondss
-				wait1Msec(2000);
-				//turn off conveyor belt
-				motor[port4] = 0;
+				onHittingTarget();
 				touchedTarget = true;
 			}
 
 		}
 		else if (SensorValue[dgtl2] == 1)
 		{
-			if(time1[T2] > 35)
+			if(time1[T2] > 50)
 			{
 				motor[port2] = 75;
 				wait1Msec(15);
@@ -172,18 +163,7 @@ task autonomous()
 			}
 			else
 			{
-				motor[port2] = -55;
-				motor[port5] = -55;
-				wait1Msec(125);
-				motor[port2] = 0;
-				motor[port5] = 0;
-				wait1Msec(750);
-				//move the conveyor belt
-				motor[port4] = -25;
-				//run conveyor belt for 2 secondss
-				wait1Msec(2000);
-				//turn off conveyor belt
-				motor[port4] = 0;
+				onHittingTarget();
 				touchedTarget = true;
 			}
 		}
