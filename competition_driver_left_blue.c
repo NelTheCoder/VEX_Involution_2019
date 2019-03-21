@@ -52,7 +52,7 @@ void onHittingTarget()
 	motor[port5] = 0;
 	wait1Msec(750);
 	//move the conveyor belt
-	motor[port4] = -26;
+	motor[port4] = -32;
 	//run conveyor belt for 3 seconds
 	wait1Msec(3000);
 	//turn off conveyor belt
