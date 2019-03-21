@@ -43,6 +43,8 @@ void drive(short left, short right)
 
 }
 
+//void onHittingTarget()
+
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -59,6 +61,11 @@ void pre_auton()
 	// running between Autonomous and Driver controlled modes. You will need to
 	// manage all user created tasks if set to false.
 	bStopTasksBetweenModes = true;
+	/*MotorPIDSpeedCtrl[port2] = mtrNoReg;
+	nMotorPIDSpeedCtrl[port3] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[port4] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[port5] = mtrSpeedReg;
+	nMotorPIDSpeedCtrl[port8] = mtrSpeedReg;*/
 
 	// Set bDisplayCompetitionStatusOnLcd to false if you don't want the LCD
 	// used by the competition include file, for example, you might want
@@ -92,7 +99,7 @@ task autonomous()
 	//set port 5 motor(right motor) to speed 127(max)
 	motor[port5] = 127;
 	//wait 3200 milliseconds(make motors move forward for 3200 milliseconds, or 3.2 seconds)
-	wait1Msec(3300);
+	wait1Msec(3200);
 	//set motor speed to 0 (motor's stopped)
 	motor[port2] = 0;
 	motor[port5] = 0;
@@ -102,7 +109,7 @@ task autonomous()
 	motor[port2] = 127;
 	motor[port5] = -127;
 	//wait 500 milliseconds (0.5 seconds) to run code for 0.5 seconds
-	wait1Msec(450);
+	wait1Msec(425);
 	//set port2 motor to 0. turns off motor.
 	motor[port2] = 0;
 	motor[port5] = 0;
@@ -114,21 +121,21 @@ task autonomous()
 		{
 			motor[port2] = -55;
 			motor[port5] = -55;
-			wait1Msec(200);
+			wait1Msec(100);
 			motor[port2] = 0;
 			motor[port5] = 0;
 			wait1Msec(750);
 			//move the conveyor belt
-			motor[port4] = -35;
+			motor[port4] = -25;
 			//run conveyor belt for 2 secondss
-			wait1Msec(1500);
+			wait1Msec(2000);
 			//turn off conveyor belt
 			motor[port4] = 0;
 			touchedTarget = true;
 		}
 		else if (SensorValue[dgtl1] == 1)
 		{
-			if(time1[T1] > 50)
+			if(time1[T1] > 35)
 			{
 				motor[port5] = 75;
 				wait1Msec(15);
@@ -140,14 +147,14 @@ task autonomous()
 				//go backwards
 				motor[port2] = -55;
 				motor[port5] = -55;
-				wait1Msec(200);
+				wait1Msec(125);
 				motor[port2] = 0;
 				motor[port5] = 0;
 				wait1Msec(750);
 				//move the conveyor belt
-				motor[port4] = -35;
+				motor[port4] = -20;
 				//run conveyor belt for 2 secondss
-				wait1Msec(1500);
+				wait1Msec(2000);
 				//turn off conveyor belt
 				motor[port4] = 0;
 				touchedTarget = true;
@@ -156,7 +163,7 @@ task autonomous()
 		}
 		else if (SensorValue[dgtl2] == 1)
 		{
-			if(time1[T2] > 25)
+			if(time1[T2] > 35)
 			{
 				motor[port2] = 75;
 				wait1Msec(15);
@@ -167,14 +174,14 @@ task autonomous()
 			{
 				motor[port2] = -55;
 				motor[port5] = -55;
-				wait1Msec(200);
+				wait1Msec(125);
 				motor[port2] = 0;
 				motor[port5] = 0;
 				wait1Msec(750);
 				//move the conveyor belt
-				motor[port4] = -35;
+				motor[port4] = -25;
 				//run conveyor belt for 2 secondss
-				wait1Msec(1500);
+				wait1Msec(2000);
 				//turn off conveyor belt
 				motor[port4] = 0;
 				touchedTarget = true;
@@ -182,7 +189,7 @@ task autonomous()
 		}
 		else if (SensorValue[dgtl2] == 0 && SensorValue[dgtl1] == 0)
 		{
-			motor[port2] = 47.5;
+			motor[port2] = 57.5;
 			motor[port5] = 63.5;
 			wait1Msec(25);
 			motor[port2] = 0;
@@ -204,7 +211,6 @@ task autonomous()
 task usercontrol()
 {
 	// User control code here, inside the loop
-
 	while (true)
 	{
 		// This is the main execution loop for the user control program.
