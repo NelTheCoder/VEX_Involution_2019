@@ -89,24 +89,8 @@ void pre_auton()
 	// All activities that occur before the competition starts
 	// Example: clearing encoders, setting servo positions, ...
 }
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
 task autonomous()
 {
-	// ..........................................................................
-	// Insert user code here.
-	// ..........................................................................
-
-	// Remove this function call once you have "real" code.
 	//go forward
 	//set port 2 motor(left motor) to speed 127(max)
 	motor[port2] = 95;
@@ -138,7 +122,7 @@ task autonomous()
 		}
 		else if (SensorValue[dgtl1] == 1)
 		{
-			if(time1[T1] > 75)
+			if(time1[T1] > 50)
 			{
 				motor[port5] = 75;
 				wait1Msec(15);
@@ -154,7 +138,7 @@ task autonomous()
 		}
 		else if (SensorValue[dgtl2] == 1)
 		{
-			if(time1[T2] > 75)
+			if(time1[T2] > 50)
 			{
 				motor[port2] = 75;
 				wait1Msec(15);
@@ -177,35 +161,25 @@ task autonomous()
 		}
 	}
 }
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
 task usercontrol()
 {
-	// User control code here, inside the loop
 	while (true)
 	{
-		// This is the main execution loop for the user control program.
-		// Each time through the loop your program should update motor + servo
-		// values based on feedback from the joysticks.
-
-		// ........................................................................
-		// Insert user code here. This is where you use the joystick values to
-		// update your motors, etc.
-		// ........................................................................
-
-		// Remove this function call once you have "real" code.
 		drive(port2, port5);
 		mtr(Btn5D, Btn5U, port3, 127, -127); //just put the controller buttons to move forward, backwards, then put the port for the motor to move.
 		mtr(Btn6D, Btn6U, port4, 100, -100); //add as many of these functions as you want
 		mtr(Btn8U, Btn8D, port8, 75, -75);
+		if(vexRT[Btn7U] == 1)
+		{
+			motor[port8] = 75;
+			wait1Msec(170);
+			motor[port8] = 0;
+		}
+		else if(vexRT[Btn7D] == 1)
+		{
+			motor[port8] = -75;
+			wait1Msec(170);
+			motor[port8] = 0;
+		}
 	}
 }
