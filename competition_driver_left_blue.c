@@ -169,17 +169,22 @@ task usercontrol()
 		mtr(Btn5D, Btn5U, port3, 127, -127); //just put the controller buttons to move forward, backwards, then put the port for the motor to move.
 		mtr(Btn6D, Btn6U, port4, 100, -100); //add as many of these functions as you want
 		mtr(Btn8U, Btn8D, port8, 75, -75);
-		if(vexRT[Btn7U] == 1)
+		bool liftUp = true;
+		if(vexRT[Btn7U] == 1 && liftUp)
 		{
+			liftUp = false;
 			motor[port8] = 75;
 			wait1Msec(170);
 			motor[port8] = 0;
+			liftUp = true;
 		}
-		else if(vexRT[Btn7D] == 1)
+		else if(vexRT[Btn7D] == 1 && liftUp)
 		{
+			liftUp = false;
 			motor[port8] = -75;
 			wait1Msec(170);
 			motor[port8] = 0;
+			liftUp = true;
 		}
 	}
 }
