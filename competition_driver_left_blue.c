@@ -47,14 +47,14 @@ void onHittingTarget()
 {
 	motor[port2] = -55;
 	motor[port5] = -55;
-	wait1Msec(100);
+	wait1Msec(110/(nImmediateBatteryLevel * 0.01/76.83));
 	motor[port2] = 0;
 	motor[port5] = 0;
-	wait1Msec(750);
+	wait1Msec(1100);
 	//move the conveyor belt
 	motor[port4] = -32;
-	//run conveyor belt for 3 seconds
-	wait1Msec(3000);
+	//run conveyor belt for 5 seconds
+	wait1Msec(3000/(nImmediateBatteryLevel * 0.01/76.83));
 	//turn off conveyor belt
 	motor[port4] = 0;
 }
@@ -97,17 +97,17 @@ task autonomous()
 	//set port 5 motor(right motor) to speed 127(max)
 	motor[port5] = 127;
 	//wait 3200 milliseconds(make motors move forward for 3200 milliseconds, or 3.2 seconds)
-	wait1Msec(3200);
+	wait1Msec(3100/(nImmediateBatteryLevel * 0.01/76.83));
 	//set motor speed to 0 (motor's stopped)
 	motor[port2] = 0;
 	motor[port5] = 0;
 	//wait half a second
 	wait1Msec(500);
 	//set left motor to 127(max) (turn right)
-	motor[port2] = 127;
 	motor[port5] = -127;
+	motor[port2] = 127;
 	//wait 500 milliseconds (0.5 seconds) to run code for 0.5 seconds
-	wait1Msec(425);
+	wait1Msec(425/(nImmediateBatteryLevel * 0.01/76.83));
 	//set port2 motor to 0. turns off motor.
 	motor[port2] = 0;
 	motor[port5] = 0;
@@ -125,7 +125,7 @@ task autonomous()
 			if(time1[T1] > 50)
 			{
 				motor[port5] = 75;
-				wait1Msec(15);
+				wait1Msec(15/(nImmediateBatteryLevel * 0.01/76.83));
 				motor[port2] = -75;
 				clearTimer(T2);
 			}
@@ -141,7 +141,7 @@ task autonomous()
 			if(time1[T2] > 50)
 			{
 				motor[port2] = 75;
-				wait1Msec(15);
+				wait1Msec(15/(nImmediateBatteryLevel * 0.01/76.83));
 				motor[port5] = -75;
 				clearTimer(T1);
 			}
@@ -155,7 +155,7 @@ task autonomous()
 		{
 			motor[port2] = 57.5;
 			motor[port5] = 63.5;
-			wait1Msec(25);
+			wait1Msec(25/(nImmediateBatteryLevel * 0.01/76.83));
 			motor[port2] = 0;
 			motor[port5] = 0;
 		}
@@ -172,13 +172,13 @@ task usercontrol()
 		if(vexRT[Btn7U] == 1)
 		{
 			motor[port8] = 75;
-			wait1Msec(175);
+			wait1Msec(175/(nImmediateBatteryLevel * 0.01/76.83));
 			motor[port8] = 0;
 		}
-		if(vexRT[Btn7D] == 1)
+		else if(vexRT[Btn7D] == 1)
 		{
 			motor[port8] = -75;
-			wait1Msec(150);
+			wait1Msec(150/(nImmediateBatteryLevel * 0.01/76.83));
 			motor[port8] = 0;
 		}
 	}
